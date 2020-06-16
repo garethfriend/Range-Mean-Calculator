@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Range-Mean Calculator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1 id="title">Range-Mean Calculator</h1>
+            <p id="description">Quick conversion between RM and R-ratio based strength values.</p>
+        </header>
+        <main>
+            <form action="" id="app" class="form-main">
+                <div id="input-toggles">
+                    <legend>Describe inputs:</legend>
+                    <label for="peakInFalse" class="radioLabel"><input type="radio" name="peakIn" id="peakInFalse" value="false" checked>Net stresses</label>
+                    <label for="peakInTrue" class="radioLabel"><input type="radio" name="peakIn" id="peakInTrue" value="true">Notch stresses</label>
+                    <label for="ktInput" id="ktLabel">Kt: </label>
+                    <input type="number" name="kt" id="ktInput" min="1" step="0.1" disabled>
+                    <label for="pkpk" id="pkpkLabel"><input type="checkbox" name="pkpkAlt" id="pkpk" disabled> Peak to peak alternating stresses</label>
+                </div>
+                <div id="stress-boxes">
+                    <label for="altStressInput">Alternating stress:</label>
+                    <input type="number" name="altStress" id="altStressInput" min="1" step="1">
+                    <label for="meanStressInput">Mean stress:</label>
+                    <input type="number" name="meanStress" id="meanStressInput" min="0" step="1">
+                    <label for="rRatioInput">R ratio:</label>
+                    <input type="number" name="rRatio" id="rRatioInput" min="-1" max="0.999" step="0.1">
+                    <label for="maxStress">Maximum stress:</label>
+                    <input type="number" name="maxStress" id="maxStressInput" min="1" step="1">
+                </div>
+                <div id="output-toggles">
+                    <legend>Required outputs:</legend>
+                    <label for="peakOutFalse" class="radioLabel"><input type="radio" name="peakOut" id="peakOutFalse" value="false" checked>Net stresses</label>       
+                    <label for="peakOutTrue" class="radioLabel"><input type="radio" name="peakOut" id="peakOutTrue" value="true">Notch stresses</label>
+                </div>
+                <input type="button" type="submit" value="Calculate">
+            </form>
+            <table id="results">
+                <thead>
+                    <th>Alternating Stress (0-peak)</th>
+                    <th>Mean Stress</th>
+                    <th>R-Ratio</th>
+                    <th>Maximum Stress</th>
+                </thead>
+                <tbody>
+
+                </tbody>
+            </table>
+        </main>
+    </div>
+    <!-- <script src="/js/object.js"></script> -->
+    <script type="module" defer src="/js/script.js"></script>
+</body>
+</html>]

@@ -25,7 +25,7 @@ class UI {
     }
 
     static addResultToList(result) {
-        const list = document.querySelector('#'));
+        const list = document.querySelector('results-table'));
         const row = document.createElement('tr');
         row.innerHTML = '<td>${result.altStress}</td><td>${result.meanStress}</td><td>${result.rRatio}</td><td>${result.maxStress}</td><td><a href="#" class="delete">X</a></td>';
         list.appendChild(row);    
@@ -84,7 +84,7 @@ class Store {
 document.addEventListener('DOMContentLoaded', UI.displayResults);
 
 // Event: Add
-document.querySelector('#').addEventListener('submit', (e) => {
+document.querySelector('app').addEventListener('submit', (e) => {
     // prevent actual submit
     e.preventDefault();
     

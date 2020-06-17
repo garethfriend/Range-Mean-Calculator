@@ -13,7 +13,7 @@
             <p id="description">Quick conversion between RM and R-ratio based strength values.</p>
         </header>
         <main>
-            <form action="" id="app" class="form-main">
+            <form action="submit" id="app" class="form-main">
                 <div id="input-toggles">
                     <legend>Describe inputs:</legend>
                     <label for="peakInFalse" class="radioLabel"><input type="radio" name="peakIn" id="peakInFalse" value="false" checked>Net stresses</label>
@@ -46,7 +46,7 @@
                     <th>R-Ratio</th>
                     <th>Maximum Stress</th>
                 </thead>
-                <tbody>
+                <tbody id="results-table">
 
                 </tbody>
             </table>

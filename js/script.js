@@ -1,33 +1,27 @@
 import FatigueStrength from "./object.js"
-// window.FatigueStrength = FatigueStrength;
-// let F1 = new FatigueStrength(250, 0, null, null); // should return R = -1 and max = 250
-// console.log(F1)
-// // let F2 = new FatigueStrength(null, 200, 0.1, null); // should not be possible
-// // console.log(F2)
-// let F3 = new FatigueStrength(null, null, 0.1, 300); // should be alt = 135 and mean = 165
-// console.log(F3)
-// let F4 = new FatigueStrength(250, null, null, 300); // should be a negative R and mean = 50
-// console.log(F4)
-// let F5 = new FatigueStrength(100, null, 0.1, null); 
-// console.log(F5)
-// let F6 = new FatigueStrength(200, null, 0.1, null, true, 1, false); 
-// console.log(F6)
-// let F7 = new FatigueStrength(null, 150, null, 300); // should be alt = 150 and R = 0
-// console.log(F7)
-// let F8 = new FatigueStrength(null, 300, null, 600, true, 2); // should be alt = 150 and R = 0
-// console.log(F8)
+
+// Get form elements
+const form = document.getElementById('app');
+const formAltStress = document.getElementById('altStressInput');
+const formMeanStress = document.getElementById('meanStressInput');
+const formRRatio = document.getElementById('rRatioInput');
+const formMaxStress = document.getElementById('maxStressInput');
+const formKt = document.getElementById('ktInput');
+const formPkPk = document.getElementById('pkpk');
+const formPeakInFalse = document.getElementById('peakInFalse');
+const formPeakInTrue = document.getElementById('peakInTrue');
 
 // UI class: Handle UI tasks
 class UI {
     static displayResults() {
         const results = Store.getResults();
-        Results.forEach((result) => UI.addResultToList(result));
+        results.forEach((result) => UI.addResultToList(result));
     }
 
     static addResultToList(result) {
-        const list = document.querySelector('results-table'));
+        const list = document.querySelector('results-table');
         const row = document.createElement('tr');
-        row.innerHTML = '<td>${result.altStress}</td><td>${result.meanStress}</td><td>${result.rRatio}</td><td>${result.maxStress}</td><td><a href="#" class="delete">X</a></td>';
+        row.innerHTML = `<td>${result.altStress}</td><td>${result.meanStress}</td><td>${result.rRatio}</td><td>${result.maxStress}</td><td><a href="#" class="delete">X</a></td>`;
         list.appendChild(row);    
     }
     static deleteResult(el) {
@@ -48,7 +42,69 @@ class UI {
     }
 
     static clearFields() {
-        document.querySelector('x').value = '';
+        formAltStress.value = "";
+        formMeanStress.value = "";
+        formRRatio.value = "";
+        formMaxStress.value = "";
+    }
+
+    static altInputToggles() {
+        if (formAltStress.value != "") {
+            formPkPk.disabled = false;
+        } else {
+            formPkPk.disabled = true;
+            formPkPk.checked = false;
+        }
+    }
+    
+    static rInputToggles() {
+        if (formRRatio.value != "") {
+            formMeanStress.value = "";
+            formMeanStress.disabled = true;
+        } else {
+            formMeanStress.disabled = false;
+        }
+    }
+    
+    static meanInputToggles() {
+        if (formMeanStress.value != "") {
+            formRRatio.value = "";
+            formRRatio.disabled = true;
+        } else {
+            formRRatio.disabled = false;
+        }
+    }
+
+    static ktInputToggles() {
+        if(formKt.value == "" || formKt.value == 1) {
+            formKt.value = 1;
+            formPeakInFalse.checked = true;
+            formPeakInTrue.disabled = true;
+            formPeakInFalse.disabled = true;
+        } else {
+            formPeakInTrue.disabled = false;
+            formPeakInFalse.disabled = false;
+        } 
+    }
+
+    static stressEntryToggles() {
+        const inputs = [formAltStress.value, formMeanStress.value, formRRatio.value, formMaxStress.value]
+        const count = inputs.filter(p => p != "").length;
+        if (count === 2) {
+            togglePairInput(formAltStress); 
+            togglePairInput(formMaxStress);     
+        } else if (count === 1) {
+            formAltStress.disabled = false
+            formMaxStress.disabled = false
+        }
+
+        function togglePairInput(input) {
+            if (input.value == "") {
+                input.disabled = true
+            } else {
+                input.disabled = false
+            }
+        }
     }
 
 }
@@ -83,27 +139,27 @@ class Store {
 // Event: Display
 document.addEventListener('DOMContentLoaded', UI.displayResults);
 
+// Event: Field changes
+formAltStress.addEventListener('change', UI.altInputToggles);
+formMeanStress.addEventListener('change', UI.meanInputToggles);
+formRRatio.addEventListener('change', UI.rInputToggles);
+formKt.addEventListener('change', UI.ktInputToggles);
+form.addEventListener('change', UI.stressEntryToggles);
+
 // Event: Add
-document.querySelector('app').addEventListener('submit', (e) => {
+form.addEventListener('submit', (e) => {
     // prevent actual submit
     e.preventDefault();
     
-    // get form values
-    const x = document.querySelector('x').value;
-    const x = document.querySelector('x').value;
-    const x = document.querySelector('x').value;
-    const x = document.querySelector('x').value;
-    const x = document.querySelector('x').value;
-    const x = document.querySelector('x').value;
-    const x = document.querySelector('x').value;
 
     // validate
     if (validation) {
-        UI.showAlert('message', 'class');
+        UI.showAlert('message', 'class'); // throw error if not enough fields are complete
     } else {
 
         // instantiate result
-        const result = new FatigueStrength(alt, mean, r, max, peak, kt, pkpk);
+        console.log(formAltStress.value, formMeanStress.value, formRRatio.value, formMaxStress.value, formPeakIn.value, formKt.value, formPkPk.value)
+        const result = new FatigueStrength(formAltStress.value, formMeanStress.value, formRRatio.value, formMaxStress.value, formPeakIn.value, formKt.value, formPkPk.value);
 
         // add result to UI
         UI.addResultToList(result);
@@ -111,7 +167,6 @@ document.querySelector('app').addEventListener('submit', (e) => {
         // add result to store
         Store.addResult(result);
     }
-
 
 });
 

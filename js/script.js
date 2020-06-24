@@ -14,7 +14,7 @@ export const formPeakIn = document.getElementsByName('peakIn');
 export const formPeakInFalse = document.getElementById('peakInFalse');
 export const formPeakInTrue = document.getElementById('peakInTrue');
 export const calcButton = document.getElementById('calcbutton');
-
+export const inputs = [formAltStress, formMeanStress, formRRatio, formMaxStress];
 
 
 
@@ -23,11 +23,9 @@ document.addEventListener('DOMContentLoaded', UI.displayResults);
 
 // Event: Field changes
 formAltStress.addEventListener('input', UI.altInputToggles);
-formMeanStress.addEventListener('input', UI.meanInputToggles);
-formRRatio.addEventListener('input', UI.rInputToggles);
+form.addEventListener('input', UI.EntryToggles);
 formKt.addEventListener('input', UI.ktInputToggles);
 formKt.addEventListener('change', UI.ktNotEmpty);
-form.addEventListener('input', UI.otherEntryToggles);
 
 // Event: Add
 form.addEventListener('submit', (e) => {
@@ -35,35 +33,38 @@ form.addEventListener('submit', (e) => {
     e.preventDefault();
 
     // validate
-    if ([formAltStress.value, formMeanStress.value, formRRatio.value, formMaxStress.value].filter(p => p != "").length < 2) {
+    if (inputs.filter(input => input.value != "").length < 2) {
         UI.showAlert('Two values are required for the calculation', 'class'); // throw error if not enough fields are complete
     } else {
-        
+
         const result = new FatigueStrength(
-            parseFloat(formAltStress.value), 
-            parseFloat(formMeanStress.value), 
-            parseFloat(formRRatio.value), 
+            parseFloat(formAltStress.value),
+            parseFloat(formMeanStress.value),
+            parseFloat(formRRatio.value),
             parseFloat(formMaxStress.value),
-            formPeakIn[1].checked, 
-            parseFloat(formKt.value), 
+            formPeakIn[1].checked,
+            parseFloat(formKt.value),
             !formPkPk.checked
-            );
+        );
         console.log(result);
+
+        // add result to store
+        Store.addResult(result);
 
         // add result to UI
         UI.addResultToList(result);
 
-        // add result to store
-        Store.addResult(result);
+        UI.clearFields();
     }
 
 });
 
 // Event: remove
-document.querySelector('x-list').addEventListener('click', (e) => {
+document.getElementById('results-table').addEventListener('click', (e) => {
     // remove from UI
     UI.deleteResult(e.target);
 
     // remove from store
-    Store.removeResult(e.target.parentElement.previousElementSibling.textContent);
+    Store.removeResult(parseInt(e.target.parentElement.parentElement.firstElementChild.textContent));
+    // Store.removeResult(e.target.parentElement.previousElementSibling.textContent);
 });

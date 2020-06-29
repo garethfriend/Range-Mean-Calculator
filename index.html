@@ -1,13 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Range-Mean Calculator</title>
     <link rel="stylesheet" href="style.css">
 </head>
-
 <body>
     <div class="container">
         <header>
@@ -46,22 +44,36 @@
                 </div>
                 <button type="submit" id="calcButton">Calculate</button>
             </form>
+            <div class="graph">
+                <canvas id="waveform"></canvas>
+            </div>
             <table id="results">
+                <col class="col1">
+                <col class="col2">
+                <col class="col3">
+                <col class="col4">
+                <col class="col5">
+                <col class="col6">
                 <thead>
                     <th>No.</th>
-                    <th>Alternating Stress (0-peak)</th>
+                    <th>Alt Stress (0-peak)</th>
                     <th>Mean Stress</th>
                     <th>R-Ratio</th>
-                    <th>Maximum Stress</th>
+                    <th>Max Stress</th>
+                    <th></th>
                 </thead>
                 <tbody id="results-table">
 
                 </tbody>
             </table>
+            <div class="graph">
+                <canvas id="r-mPlot"></canvas>
+            </div>
         </main>
     </div>
     <!-- <script src="/js/object.js"></script> -->
     <script type="module" defer src="/js/script.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.js"></script>
 </body>
 
 </html>]

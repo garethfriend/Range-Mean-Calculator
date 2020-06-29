@@ -16,7 +16,7 @@ const list = document.getElementById('results-table');
 
 export function displayResults() {
     const results = Store.getResults();
-    results.forEach((result) => addResultToList(result));
+    results.forEach(result => addResultToList(result));
 }
 
 export function addResultToList(result) {
@@ -30,10 +30,14 @@ export function addResultToList(result) {
     list.appendChild(row);
 }
 
+// export function deleteResult(el) {
+//     if (el.classList.contains('delete')) {
+//         el.parentElement.parentElement.remove();
+//     }
+// }
+
 export function deleteResult(el) {
-    if (el.classList.contains('delete')) {
-        el.parentElement.parentElement.remove();
-    }
+    el.classList.contains('delete') && el.parentElement.parentElement.remove();
 }
 
 export function showAlert(message, className) {
@@ -49,7 +53,7 @@ export function showAlert(message, className) {
 
 export function clearFields() {
     inputs.forEach(input => {
-        input.disabled = false; 
+        input.disabled = false;
         input.value = "";
     });
 }
@@ -93,11 +97,7 @@ export function EntryToggles() {
     }
 
     function togglePairInput(input) {
-        if (input.value == "") {
-            input.disabled = true
-        } else {
-            input.disabled = false
-        }
+        input.value == "" ? input.disabled = true : input.disabled = false
     }
 
     function mutuallyExclusiveInputToggles(input1, input2) {

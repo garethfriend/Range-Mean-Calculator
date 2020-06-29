@@ -87,7 +87,6 @@ export default class FatigueStrength {
 
     _RoundFloatingPoint(number, places) {
         const multiplier = Math.pow(10, places);
-        console.log(Math.round((number + Number.EPSILON) * multiplier) / multiplier)
         return Math.round((number + Number.EPSILON) * multiplier) / multiplier;
     }
 

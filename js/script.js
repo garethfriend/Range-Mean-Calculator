@@ -1,6 +1,7 @@
 import FatigueStrength from "./object.js"
 import * as UI from "./UI.js"
 import * as Store from "./store.js"
+import * as chart from "./charts.js"
 
 // Get form elements
 export const form = document.getElementById('app');
@@ -15,8 +16,6 @@ export const formPeakInFalse = document.getElementById('peakInFalse');
 export const formPeakInTrue = document.getElementById('peakInTrue');
 export const calcButton = document.getElementById('calcbutton');
 export const inputs = [formAltStress, formMeanStress, formRRatio, formMaxStress];
-
-
 
 // Event: Display
 document.addEventListener('DOMContentLoaded', UI.displayResults);

@@ -1,7 +1,7 @@
-import FatigueStrength from "./object.js"
-import * as UI from "./UI.js"
-import * as Store from "./store.js"
-import * as chart from "./charts.js"
+import FatigueStrength from "./object.js";
+import * as UI from "./UI.js";
+import * as Store from "./store.js";
+import * as Chart from "./charts.js";
 
 // Get form elements
 export const form = document.getElementById('app');
@@ -47,6 +47,9 @@ form.addEventListener('submit', (e) => {
         );
         console.log(result);
 
+        // plot result
+        Chart.updateWaveform(result.altStress, result.meanStress);
+
         // add result to store
         Store.addResult(result);
 
@@ -60,10 +63,17 @@ form.addEventListener('submit', (e) => {
 
 // Event: remove
 document.getElementById('results-table').addEventListener('click', (e) => {
-    // remove from UI
-    UI.deleteResult(e.target);
-
-    // remove from store
-    Store.removeResult(parseInt(e.target.parentElement.parentElement.firstElementChild.textContent));
-    // Store.removeResult(e.target.parentElement.previousElementSibling.textContent);
+   
+    if(e.target.classList.contains('delete')) {
+        // remove from UI
+        UI.deleteResult(e.target);
+        // remove from store
+        Store.removeResult(parseInt(e.target.parentElement.parentElement.firstElementChild.textContent));
+    } else if (e.target.classList.contains('result-id')) {
+        // get the stored object by id
+        let resultToPLot = Store.selectResult(parseInt(e.target.textContent));
+        // update the waveform graph with the objects properties
+        Chart.updateWaveform(resultToPLot.altStress, resultToPLot.meanStress);
+    }
+    
 });

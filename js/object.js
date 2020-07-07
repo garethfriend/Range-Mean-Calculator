@@ -16,7 +16,7 @@ export default class FatigueStrength {
             this.meanStress,
             this.rRatio,
             this.maxStress
-        ] = this.CalculateStresses(tempAltStress, tempMeanStress, tempRRatio, tempMaxStress)
+        ] = this.CalculateStresses(tempAltStress, tempMeanStress, tempRRatio, tempMaxStress);
     }
 
     // METHODS
@@ -93,7 +93,6 @@ export default class FatigueStrength {
     _CountNumbers(paramA, paramB, paramC = null, paramD = null) {
         return [paramA, paramB, paramC, paramD].filter(p => Number.isFinite(p)).length;
     }
-
     // methods used for scaling alt stress and recalculating others, percent given as decimal. Could use calculate function 
     // again but more computationally efficient not to go through if statements again as we know which pair is being passed
     // and we don't need all the cases.

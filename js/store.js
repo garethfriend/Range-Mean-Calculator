@@ -27,3 +27,8 @@ export function removeResult(id) {
     const results = getResults().filter(obj => obj.id !== id);
     localStorage.setItem('results', JSON.stringify(results));
 }
+
+export function selectResult(id) {
+    const result = getResults().filter(obj => obj.id === id);
+    return result[0];
+}

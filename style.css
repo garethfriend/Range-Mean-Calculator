@@ -121,13 +121,18 @@ sub {
     margin: 1em 0;
 }
 
-.delete {
+#waveform {
+    background-color: rgba(130, 130, 130, 0.7);
+    margin: 1em 0;
+}
+
+.delete, .result-id {
     text-decoration: none;
     color: white;
     transition: ease-in;
 }
 
-.delete:hover {
+.delete:hover, .result-id:hover {
     color: rgba(222, 222, 222, 0.5);
 }
 

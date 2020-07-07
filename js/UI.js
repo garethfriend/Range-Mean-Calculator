@@ -21,12 +21,12 @@ export function displayResults() {
 
 export function addResultToList(result) {
     const row = document.createElement('tr');
-    row.innerHTML = `<td>${result.id}</td>
+    row.innerHTML = `<td><a href="#waveform" class="result-id">${result.id}</a></td>
     <td>${result.altStress}</td>
     <td>${result.meanStress}</td>
     <td>${result.rRatio}</td>
     <td>${result.maxStress}</td>
-    <td><a href="#" class="delete">Delete</a></td>`;
+    <td><a href="#waveform" class="delete">Delete</a></td>`;
     list.appendChild(row);
 }
 
@@ -36,9 +36,7 @@ export function addResultToList(result) {
 //     }
 // }
 
-export function deleteResult(el) {
-    el.classList.contains('delete') && el.parentElement.parentElement.remove();
-}
+export const deleteResult = (el) => el.parentElement.parentElement.remove();
 
 export function showAlert(message, className) {
     const div = document.createElement('div');
@@ -97,7 +95,7 @@ export function EntryToggles() {
     }
 
     function togglePairInput(input) {
-        input.value == "" ? input.disabled = true : input.disabled = false
+        input.value == "" ? input.disabled = true : input.disabled = false;
     }
 
     function mutuallyExclusiveInputToggles(input1, input2) {

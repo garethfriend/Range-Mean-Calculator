@@ -7,12 +7,14 @@ import {
     formPkPk,
     formPeakInFalse,
     formPeakInTrue,
-    inputs
+    formPeakOutFalse,
+    formPeakOutTrue,
+    inputs,
+    resultsList
 } from "./script.js";
 import * as Store from "./store.js";
 
 // Form elements
-const list = document.getElementById('results-table');
 
 export function displayResults() {
     const results = Store.getResults();
@@ -27,26 +29,20 @@ export function addResultToList(result) {
     <td>${result.rRatio}</td>
     <td>${result.maxStress}</td>
     <td><a href="#waveform" class="delete">Delete</a></td>`;
-    list.appendChild(row);
+    resultsList.appendChild(row);
 }
-
-// export function deleteResult(el) {
-//     if (el.classList.contains('delete')) {
-//         el.parentElement.parentElement.remove();
-//     }
-// }
 
 export const deleteResult = (el) => el.parentElement.parentElement.remove();
 
 export function showAlert(message, className) {
     const div = document.createElement('div');
-    div.className = `enter a class name here ${className}`;
+    div.className = `info-${className}`;
     div.appendChild(document.createTextNode(message));
-    const container = document.querySelector('x');
-    const form = document.querySelector('x');
-    container.insertBefore(div, form);
-    // vanish in 3 seconds
-    setTimeout(() => document.querySelector('x').remove(), 3000);
+    // const container = document.getElementById('info-window');
+    // const form = document.getElementById('app');
+    // container.insertBefore(div, form);
+    // // vanish in 3 seconds
+    // setTimeout(() => document.querySelector('x').remove(), 3000);
 }
 
 export function clearFields() {
@@ -67,9 +63,16 @@ export function altInputToggles() {
 
 export function ktInputToggles() {
     if (formKt.value == "" || formKt.value == 1) {
+        // disable peak input radios
         formPeakInFalse.checked = true;
         formPeakInTrue.disabled = true;
         formPeakInFalse.disabled = true;
+
+        // disable peak out radios
+        formPeakOutFalse.checked = true;
+        formPeakOutTrue.disabled = true;
+        formPeakOutFalse.disabled = true;
+
     } else {
         formPeakInTrue.disabled = false;
         formPeakInFalse.disabled = false;

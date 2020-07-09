@@ -5,17 +5,28 @@ import * as Chart from "./charts.js";
 
 // Get form elements
 export const form = document.getElementById('app');
+// stress inputs
 export const formAltStress = document.getElementById('altStressInput');
 export const formMeanStress = document.getElementById('meanStressInput');
 export const formRRatio = document.getElementById('rRatioInput');
 export const formMaxStress = document.getElementById('maxStressInput');
+// inputs array
+export const inputs = [formAltStress, formMeanStress, formRRatio, formMaxStress];
+// kt related inputs
 export const formKt = document.getElementById('ktInput');
 export const formPkPk = document.getElementById('pkpk');
 export const formPeakIn = document.getElementsByName('peakIn');
 export const formPeakInFalse = document.getElementById('peakInFalse');
 export const formPeakInTrue = document.getElementById('peakInTrue');
+export const formPeakOut = document.getElementsByName('peakOut');
+export const formPeakOutFalse = document.getElementById('peakOutFalse');
+export const formPeakOutTrue = document.getElementById('peakOutTrue');
+// form controls
 export const calcButton = document.getElementById('calcbutton');
-export const inputs = [formAltStress, formMeanStress, formRRatio, formMaxStress];
+// results list
+export const resultsList = document.getElementById('results-table');
+
+
 
 // Event: Display
 document.addEventListener('DOMContentLoaded', UI.displayResults);
@@ -35,7 +46,7 @@ form.addEventListener('submit', (e) => {
     if (inputs.filter(input => input.value != "").length < 2) {
         UI.showAlert('Two values are required for the calculation', 'class'); // throw error if not enough fields are complete
     } else {
-
+        // create the result object
         const result = new FatigueStrength(
             parseFloat(formAltStress.value),
             parseFloat(formMeanStress.value),
@@ -55,14 +66,15 @@ form.addEventListener('submit', (e) => {
 
         // add result to UI
         UI.addResultToList(result);
-
+        
+        // clear ready for next input
         UI.clearFields();
     }
 
 });
 
 // Event: remove
-document.getElementById('results-table').addEventListener('click', (e) => {
+resultsList.addEventListener('click', (e) => {
    
     if(e.target.classList.contains('delete')) {
         // remove from UI

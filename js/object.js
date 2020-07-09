@@ -28,18 +28,27 @@ export default class FatigueStrength {
             // functions, after two rounds only one valid pair remains.
             console.log(`Alt: ${alt} Mean: ${mean} R: ${r} Max: ${max}`);
             if (this._CountNumbers(alt, mean) === 2) {
+
                 r = this._RFromMeanAlt(mean, alt);
                 max = this._MaxFromAltMean(alt, mean);
+            
             } else if (this._CountNumbers(alt, mean) === 0) {
+
                 alt = this._AltFromMaxR(max, r);
                 mean = this._MeanFromMaxAlt(max, alt);
+            
             } else if (this._CountNumbers(mean, max) === 2) {
+            
                 alt = this._AltFromMaxMean(max, mean);
                 r = this._RFromMeanAlt(mean, alt);
+            
             } else if (this._CountNumbers(mean, max) === 0) {
+            
                 max = this._MaxFromAltR(alt, r);
                 mean = this._MeanFromMaxR(max, r);
+            
             } else {
+            
                 r = this._RFromAltMax(alt, max);
                 mean = this._MeanFromMaxR(max, r);
             }

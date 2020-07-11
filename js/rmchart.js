@@ -1,6 +1,6 @@
 // Chart canvas
 const waveform = document.getElementById('waveform').getContext('2d');
-// const rmPlot = document.getElementById('r-mPlot').getContext('2d');
+const rmPlot = document.getElementById('r-mPlot').getContext('2d');
 
 // generates a sine wave waveform with amplitude of alt and and offset of mean
 export const generateWaveform = (alt, mean) => {
@@ -27,6 +27,7 @@ let data = generateWaveform(450, 50);
 Chart.defaults.global.defaultFontColor = 'white';
 Chart.defaults.global.defaultFontSize = 10;
 Chart.defaults.global.plugins.deferred.options = { "deferred": { "xOffset": "50%", "delay": 250 } };
+Chart.platform.disableCSSInjection = true;
 
 let waveformChart = new Chart(waveform, {
     type: 'line',
@@ -34,8 +35,13 @@ let waveformChart = new Chart(waveform, {
         datasets: [{
             label: 'Fatigue Cycle',
             data: data,
+            fill: +1,
             borderColor: 'rgba(255, 206, 86, 1)',
             borderWidth: 2
+        }, {
+            data: data.map(d => Object.assign({}, d, {y: 0})),
+            borderColor: 'black',
+            borderWidth: 1,
         }],
     },
     options: {
@@ -52,8 +58,8 @@ let waveformChart = new Chart(waveform, {
         layout: {
             padding: {
                 left: 5,
-                right: 15,
-                top: 5,
+                right: 20,
+                top: 10,
                 bottom: 5
             }
         },
@@ -122,7 +128,7 @@ let waveformChart = new Chart(waveform, {
                     backgroundColor: "rgba(130, 130, 130, 0.7)",
                     content: `Alt: ${Math.round(data[5].y - data[10].y)}`,
                     position: 'left',
-                    xAdjust: 15,
+                    xAdjust: 30, // TO DO - make this a percentage of canvas width
                     enabled: true,
                     fontSize: 10
                 }
@@ -135,9 +141,10 @@ let waveformChart = new Chart(waveform, {
                 borderColor: "rgba(130, 130, 130, 0)",
                 borderWidth: 1,
                 label: {
-                    backgroundColor: "rgba(130, 130, 130, 0.7)",
-                    content: `R = ${Math.round(((data[15].y / data[5].y) + Number.EPSILON) * 1000) / 1000}`,
-                    // yAdjust: -60,
+                    backgroundColor: "rgba(255, 255, 255, 0.7)",
+                    fontColor: "gray",
+                    content: `R ratio = ${Math.round(((data[15].y / data[5].y) + Number.EPSILON) * 1000) / 1000}`,
+                    xAdjust: 15,
                     position: 'top',
                     enabled: true,
                     fontSize: 10
@@ -176,7 +183,6 @@ let waveformChart = new Chart(waveform, {
                 },
                 type: 'linear',
                 display: false,
-                // max: 1 * Math.PI
             }]
         },
         tooltips: {
@@ -184,8 +190,6 @@ let waveformChart = new Chart(waveform, {
         }
     }
 });
-
-// console.log(waveformChart);
 
 // update the chart
 export function updateWaveform(alt, mean) {
@@ -231,6 +235,3 @@ export function updateWaveform(alt, mean) {
     }
     waveformChart.update();
 }
-
-// waveformPlot(300, 0);
-// updateWaveform(40, 150)

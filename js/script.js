@@ -1,7 +1,7 @@
 import FatigueStrength from "./object.js";
 import * as UI from "./UI.js";
 import * as Store from "./store.js";
-import * as Chart from "./charts.js";
+import * as Chart from "./waveformchart.js";
 
 // Get form elements
 export const form = document.getElementById('app');
@@ -44,7 +44,7 @@ form.addEventListener('submit', (e) => {
 
     // validate
     if (inputs.filter(input => input.value != "").length < 2) {
-        UI.showAlert('Two values are required for the calculation', 'class'); // throw error if not enough fields are complete
+        UI.showAlert('Two values are required for the calculation', 'class'); // TO DO - throw error if not enough fields are complete
     } else {
         // create the result object
         const result = new FatigueStrength(

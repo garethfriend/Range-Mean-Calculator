@@ -2,7 +2,6 @@ import {
     formAltStress,
     formMeanStress,
     formRRatio,
-    formMaxStress,
     formKt,
     formPkPk,
     formPeakInFalse,
@@ -14,7 +13,6 @@ import {
 } from "./script.js";
 import * as Store from "./store.js";
 
-// Form elements
 
 export function displayResults() {
     const results = Store.getResults();
@@ -62,20 +60,13 @@ export function altInputToggles() {
 }
 
 export function ktInputToggles() {
+    const ktRadios = [formPeakInFalse, formPeakInTrue, formPeakOutFalse, formPeakOutTrue];
     if (formKt.value == "" || formKt.value == 1) {
-        // disable peak input radios
         formPeakInFalse.checked = true;
-        formPeakInTrue.disabled = true;
-        formPeakInFalse.disabled = true;
-
-        // disable peak out radios
         formPeakOutFalse.checked = true;
-        formPeakOutTrue.disabled = true;
-        formPeakOutFalse.disabled = true;
-
+        ktRadios.forEach(input => input.disabled = true);       
     } else {
-        formPeakInTrue.disabled = false;
-        formPeakInFalse.disabled = false;
+        ktRadios.forEach(input => input.disabled = false);
     }
 }
 
